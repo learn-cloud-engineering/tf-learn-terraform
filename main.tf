@@ -1,6 +1,6 @@
 resource "aws_instance" "app_server" {
   ami           = aws_ami.amazon_linux.id
-  instance_type = "t3.micro"
+  instance_type = var.instance_type
 
   tags = {
     Name = "jsrn-app-server"
@@ -27,4 +27,14 @@ output "amazon_linux_ami_arn" {
 
 output "amazon_linux_ami_name" {
   value = data.aws_ami.amazon_linux.name
+}
+
+variable "instance_type" {
+  description = "The instance type for the EC2 instance"
+  default = "t3.micro"
+
+  validation {
+    condition = contains(["t2.micro","t3.micro"], var.instance_type)
+    error_message = "Invalid instance type. Please choose from: t2.micro, t3.micro"
+  }
 }
