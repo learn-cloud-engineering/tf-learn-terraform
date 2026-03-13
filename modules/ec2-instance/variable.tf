@@ -12,3 +12,8 @@ variable "name_prefix" {
   description = "The name prefix for all resources"
   default     = "jsrn"
 }
+
+variable "vpc_id" {
+  description = "The VPC id to launch the EC2 instance in"
+  default     = ""
+}

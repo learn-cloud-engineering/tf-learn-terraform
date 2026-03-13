@@ -1,3 +1,7 @@
+locals {
+  vpc_id = var.vpc_id == "" ? data.aws_vpc.default.id : var.vpc_id
+}
+
 resource "aws_instance" "app_server" {
   ami           = data.aws_ami.amazon_linux.id
   instance_type = var.instance_type
@@ -9,14 +13,10 @@ resource "aws_instance" "app_server" {
   }
 }
 
-data "aws_vpc" "default" {
-  default = true
-}
-
 resource "aws_security_group" "app_server_sg" {
   name        = "${var.name_prefix}-app-server-sg"
   description = "The security group for the app server"
-  vpc_id      = data.aws_vpc.default.id
+  vpc_id      = local.vpc_id
 }
 
 resource "aws_vpc_security_group_ingress_rule" "allow_ssh" {
