@@ -26,3 +26,11 @@ output "aws_instance_public_ip" {
 output "aws_instance_private_ip" {
   value = aws_instance.app_server.private_ip
 }
+
+output "aws_security_group_name" {
+  value = aws_security_group.app_server_sg.name
+}
+
+output "aws_security_group_id" {
+  value = aws_security_group.app_server_sg.id
+}

@@ -8,7 +8,7 @@ variable "instance_type" {
   }
 }
 
-variable "instance_name" {
-  description = "The name of the instance"
-  default     = "jsrn-app-server"
+variable "name_prefix" {
+  description = "The name prefix for all resources"
+  default     = "jsrn"
 }
