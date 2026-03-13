@@ -1,8 +1,30 @@
 resource "aws_instance" "app_server" {
-  ami           = "ami-0be9cb9f67c8dabd6"
+  ami           = aws_ami.amazon_linux.id
   instance_type = "t3.micro"
 
   tags = {
     Name = "jsrn-app-server"
   }
+}
+
+data "aws_ami" "amazon_linux" {
+  most_recent = true
+  owners      = ["amazon"]
+
+  filter {
+    name   = "name"
+    values = ["al2023-ami-2023.*-x86_64"]
+  }
+}
+
+output "amazon_linux_ami_id" {
+  value = data.aws_ami.amazon_linux.id
+}
+
+output "amazon_linux_ami_arn" {
+  value = data.aws_ami.amazon_linux.arn
+}
+
+output "amazon_linux_ami_name" {
+  value = data.aws_ami.amazon_linux.name
 }
