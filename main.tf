@@ -3,7 +3,7 @@ resource "aws_instance" "app_server" {
   instance_type = var.instance_type
 
   tags = {
-    Name = "jsrn-app-server"
+    Name = var.instance_name
   }
 }
 
@@ -53,4 +53,9 @@ variable "instance_type" {
     condition = contains(["t2.micro","t3.micro"], var.instance_type)
     error_message = "Invalid instance type. Please choose from: t2.micro, t3.micro"
   }
+}
+
+variable "instance_name" {
+  description = "The name of the instance"
+  default = "jsrn-app-server"
 }
